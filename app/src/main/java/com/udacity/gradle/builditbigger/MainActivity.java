@@ -1,31 +1,19 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.example.androidjokes.JokeActivity;
-import com.example.javajokes.Joker;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    private Joker joker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // initialize the joker object used for getting jokes
-        // from the javaJokes java library
-        joker = new Joker();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,10 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_EXTRA, joker.getJoke());
-        startActivity(intent);
+        EndpointsAsyncTask task = new EndpointsAsyncTask(this);
+        task.execute();
     }
-
-
 }
