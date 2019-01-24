@@ -32,6 +32,18 @@ android {
         }
     }
 
+    flavorDimensions 'tier'
+    productFlavors {
+        free {
+            dimension 'tier'
+            applicationId 'com.udacity.gradle.builditbigger.free'
+        }
+        paid {
+            dimension 'tier'
+            applicationId 'com.udacity.gradle.builditbigger.paid'
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -48,7 +60,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.google.android.gms:play-services-ads:17.1.2'
+    // get google play ad services only for the free version
+    freeImplementation 'com.google.android.gms:play-services-ads:17.1.2'
     implementation 'com.google.api-client:google-api-client:1.25.0'
     // https://mvnrepository.com/artifact/com.google.http-client/google-http-client-android
     implementation 'com.google.http-client:google-http-client-android:1.28.0'
