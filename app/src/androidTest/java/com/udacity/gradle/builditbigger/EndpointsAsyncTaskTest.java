@@ -2,6 +2,7 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.ProgressBar;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,9 @@ public class EndpointsAsyncTaskTest {
 
     @Mock
     Context mockContext;
+
+    @Mock
+    ProgressBar progressBar;
 
     @Test
     public void AsyncTaskRetrievesNonEmptyString() throws InterruptedException {
