@@ -20,3 +20,7 @@ allprojects {
         google()
     }
 }
+
+task testTask(type: GradleBuild) {
+    tasks = ['appEngineStart', 'check', 'appEngineStop']
+}
