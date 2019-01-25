@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -16,11 +17,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private InterstitialAd interstitialAd;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -44,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAdClosed() {
                 // fetch and show the joke when the ad is closed
-                EndpointsAsyncTask task = new EndpointsAsyncTask(MainActivity.this);
+                EndpointsAsyncTask task = new EndpointsAsyncTask(MainActivity.this, progressBar);
                 task.execute();
+
+                // show the progress bar
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }

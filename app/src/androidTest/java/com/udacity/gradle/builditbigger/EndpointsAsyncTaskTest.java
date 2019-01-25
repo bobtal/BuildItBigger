@@ -20,7 +20,7 @@ public class EndpointsAsyncTaskTest {
     @Test
     public void AsyncTaskRetrievesNonEmptyString() throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        EndpointsAsyncTask task = new EndpointsAsyncTask(mockContext) {
+        EndpointsAsyncTask task = new EndpointsAsyncTask(mockContext, progressBar) {
             @Override
             protected void onPostExecute(String s) {
                 assertNotNull(s);

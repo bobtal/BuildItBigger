@@ -5,14 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -38,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        EndpointsAsyncTask task = new EndpointsAsyncTask(this);
+        // fetch and show the joke when the button is closed
+        EndpointsAsyncTask task = new EndpointsAsyncTask(MainActivity.this, progressBar);
         task.execute();
+
+        // show the progress bar
+        progressBar.setVisibility(View.VISIBLE);
     }
 }

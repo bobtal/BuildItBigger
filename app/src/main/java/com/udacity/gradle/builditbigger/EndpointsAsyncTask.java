@@ -3,6 +3,8 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.androidjokes.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -18,9 +20,11 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
     private final WeakReference<Context> contextWeakReference;
     private static MyApi myApiService = null;
+    private final WeakReference<ProgressBar> progressBarWeakReference;
 
-    EndpointsAsyncTask(Context context) {
+    EndpointsAsyncTask(Context context, ProgressBar progressBar) {
         this.contextWeakReference = new WeakReference<>(context);
+        this.progressBarWeakReference = new WeakReference<>(progressBar);
     }
 
     @Override
@@ -52,9 +56,13 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String joke) {
+        // hide the progress bar
+        progressBarWeakReference.get().setVisibility(View.INVISIBLE);
+
+        // Start the JokeActivity with the retreived joke as extra
         Intent intent = new Intent(contextWeakReference.get(), JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_EXTRA, s);
+        intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
         contextWeakReference.get().startActivity(intent);
     }
 }
