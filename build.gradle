@@ -24,3 +24,12 @@ allprojects {
 task testTask(type: GradleBuild) {
     tasks = ['appEngineStart', 'test', 'appEngineStop']
 }
+
+task testTask2 {
+    dependsOn ':backend:appengineStart'
+    dependsOn ':app:test'
+    dependsOn ':backend:appengineStop'
+
+    tasks.findByPath(':app:test').mustRunAfter tasks.findByPath(':backend:appengineStart')
+    tasks.findByPath(':backend:appengineStop').mustRunAfter tasks.findByPath(':app:test')
+}
