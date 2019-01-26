@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+
+    private final static String TAG = EndpointsAsyncTask.class.getSimpleName();
 
     private final WeakReference<Context> contextWeakReference;
     private static MyApi myApiService = null;
@@ -51,7 +54,10 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             return myApiService.fetchJoke().execute().getData();
         } catch (IOException exception) {
-            return exception.getMessage();
+            // Logs the error message and
+            Log.d(TAG, exception.getMessage());
+            // returns an empty string (easier for testing)
+            return "";
         }
     }
 
