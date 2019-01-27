@@ -21,3 +21,5 @@ backend/build/tmp/
 /backend/build/endpointsDiscoveryDocs/
 /backend/build/distributions/
 /backend/build/classes/
+backend/build/dev-appserver-out/
+backend/build/exploded-backend/
