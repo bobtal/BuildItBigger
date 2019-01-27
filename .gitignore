@@ -13,3 +13,11 @@
 app/libs/
 /.idea/caches/build_file_checksums.ser
 .idea/assetWizardSettings.xml
+/.idea/misc.xml
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+backend/build/libs/
+backend/build/tmp/
+/backend/build/endpointsDiscoveryDocs/
+/backend/build/distributions/
+/backend/build/classes/
