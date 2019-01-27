@@ -27,9 +27,23 @@ task testTask(type: GradleBuild) {
 
 task testTask2 {
     dependsOn ':backend:appengineStart'
-    dependsOn ':app:test'
+    dependsOn ':app:connectedAndroidTest'
     dependsOn ':backend:appengineStop'
 
-    tasks.findByPath(':app:test').mustRunAfter tasks.findByPath(':backend:appengineStart')
-    tasks.findByPath(':backend:appengineStop').mustRunAfter tasks.findByPath(':app:test')
+    tasks.findByPath(':app:connectedAndroidTest').mustRunAfter tasks.findByPath(':backend:appengineStart')
+    tasks.findByPath(':backend:appengineStop').mustRunAfter tasks.findByPath(':app:connectedAndroidTest')
+}
+
+// third approach for the custom test task
+task startBackend (dependsOn: ":backend:appengineStart") {
+    doLast {
+        println "Started the backend!"
+    }
+}
+
+task customTestTask {
+    dependsOn("startBackend")
+    mustRunAfter("startBackend")
+    dependsOn("app:connectedAndroidTest")
+    finalizedBy ":backend:appengineStop"
 }
